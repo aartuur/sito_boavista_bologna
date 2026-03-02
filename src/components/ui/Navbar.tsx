@@ -19,7 +19,7 @@ export default function NavbarBoaVista({
     { label: "Prenota", href: "#prenota" },
     { label: "Contatti", href: "#contatti" },
   ],
-  logoSrc = "/public/logo.png",
+  logoSrc = "logo.png",
   tableLabel = "TAVOLO 7",
   onTableClick,
 }: Props) {

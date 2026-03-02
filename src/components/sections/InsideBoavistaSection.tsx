@@ -43,11 +43,11 @@ export default function InsideBoavistaSection({
   title = "Inside Boavista",
   subtitle = "Atmosfera, musica, energia.",
   images = {
-    leftTop: "/imgs/inside/left_top.jpg",
-    leftBottom: "/imgs/inside/left_bottom.jpg",
-    center: "/imgs/inside/center.jpg",
-    rightTop: "/imgs/inside/right_top.jpg",
-    rightBottom: "/imgs/inside/right_bottom.jpg",
+    leftTop: "/imgs/gallery-1.png",
+    leftBottom: "/imgs/gallery-2.png",
+    center: "/imgs/gallery-3.png",
+    rightTop: "/imgs/gallery-4.png",
+    rightBottom: "/imgs/gallery-5.png",
   },
 }: Props) {
   return (

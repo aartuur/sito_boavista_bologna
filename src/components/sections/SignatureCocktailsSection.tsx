@@ -16,41 +16,112 @@ type Props = {
 
 function CocktailCard({ item }: { item: Cocktail }) {
   return (
-    <div className="relative overflow-hidden rounded-[10px] border border-white/30 bg-white/5 shadow-[0_16px_40px_rgba(0,0,0,0.45)]">
-      <div className="absolute inset-0 bg-black/25" />
+    <article
+      className="
+        group relative aspect-square w-full overflow-hidden rounded-[18px]
+        border border-white/12 bg-black/10
+        shadow-[0_22px_70px_rgba(0,0,0,0.62)]
+        transition duration-300 hover:-translate-y-1
+      "
+    >
+      {/* IMAGE */}
       <img
         src={item.imageUrl}
         alt={item.name}
-        className="h-[220px] w-full object-cover"
         draggable={false}
+        className="
+          absolute inset-0 h-full w-full object-cover
+          transition duration-500 group-hover:scale-[1.06]
+        "
       />
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10" />
+      {/* OVERLAY LIGHT */}
+      <div className="absolute inset-0 bg-black/10" />
 
-      <div className="absolute left-3 top-3 flex items-center gap-2">
-        <span className="text-[13px] italic text-white/90">{item.name}</span>
-        <span className="h-px w-10 bg-red-500/80" />
-      </div>
-
-      <button
-        type="button"
-        className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-[6px] border border-white/35 bg-black/20 text-white/85 backdrop-blur-[2px] hover:bg-black/35 transition"
-        aria-label="Aggiungi"
-      >
-        <ShoppingCartOutlinedIcon sx={{ fontSize: 18 }} />
-      </button>
-
-      <div className="absolute bottom-0 left-0 right-0 px-3 pb-3">
-        <div className="mx-auto w-[92%] rounded-[8px] border border-white/25 bg-black/35 px-3 py-2 text-center backdrop-blur-[2px]">
-          <div className="text-[13px] italic text-white/90">
-            {item.ingredients}
+      {/* TOP: TITLE + CART */}
+      <div className="absolute left-5 right-5 top-5 flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <div className="inline-block">
+            <h3 className="max-w-[240px] truncate text-[20px] font-semibold tracking-wide text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+              {item.name}
+            </h3>
+            <div className="mt-1 h-[2px] w-full bg-red-500" />
           </div>
         </div>
-        <div className="pt-2 text-center text-[14px] italic text-white/90">
-          {item.price}
+
+        <button
+          type="button"
+          aria-label="Aggiungi"
+          className="
+            grid h-10 w-10 shrink-0 place-items-center rounded-full
+            border border-white/14 bg-black/25 text-white/90
+            backdrop-blur-sm
+            transition hover:bg-black/40 hover:border-white/22
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/70
+          "
+        >
+          <ShoppingCartOutlinedIcon sx={{ fontSize: 20 }} />
+        </button>
+      </div>
+
+      {/* BOTTOM: GLASS PANEL (blur ridotto + immagine visibile sotto) */}
+      <div className="absolute inset-x-0 bottom-0 p-5">
+        <div
+          className="
+            relative overflow-hidden rounded-2xl
+            border border-white/14
+            bg-white/5
+            backdrop-blur-[6px]
+            shadow-[0_14px_40px_rgba(0,0,0,0.45)]
+          "
+        >
+          {/* accent */}
+          <div className="h-[2px] w-full bg-red-500/90" />
+
+          <div className="px-4 py-4">
+            {/* INGREDIENTS */}
+            <p className="text-[14px] italic leading-snug text-white/92">
+              {item.ingredients}
+            </p>
+
+            {/* PRICE + icons row (al posto di linea/boavista) */}
+            <div className="mt-3 flex items-center justify-between gap-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-red-500/35 bg-black/20 px-3 py-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                <span className="text-[14px] font-semibold tracking-wide text-white">
+                  {item.price}
+                </span>
+              </div>
+
+              {/* mini “signature” pills */}
+              <div className="flex items-center gap-2">
+                <span className="rounded-full border border-white/18 bg-black/15 px-3 py-1 text-[12px] tracking-wide text-white/85">
+                  Classico
+                </span>
+                <span className="rounded-full border border-white/18 bg-black/15 px-3 py-1 text-[12px] tracking-wide text-white/85">
+                  Twist
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* subtle shine */}
+          <div
+            className="
+              pointer-events-none absolute -left-1/2 top-0 h-full w-1/2 -skew-x-12
+              bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)]
+              opacity-0 transition duration-500
+              group-hover:translate-x-[260%] group-hover:opacity-100
+            "
+          />
         </div>
       </div>
-    </div>
+
+      {/* HOVER highlight */}
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
+        <div className="absolute inset-0 [background:radial-gradient(circle_at_50%_15%,rgba(255,255,255,0.14),transparent_55%)]" />
+      </div>
+    </article>
   );
 }
 
@@ -60,37 +131,37 @@ export default function SignatureCocktailsSection({
   items = [
     {
       name: "Red Velvet",
-      imageUrl: "/public/imgs/cocktails/red-velvet.jpg",
+      imageUrl: "/imgs/drink-1.png",
       ingredients: "Gin - Bitter - Vermouth Rosso",
       price: "10€",
     },
     {
       name: "Negroni Affumicato",
-      imageUrl: "/public/imgs/cocktails/negroni-affumicato.jpg",
+      imageUrl: "/imgs/drink-2.png",
       ingredients: "Gin - Bitter - Vermouth - Affumicatura a freddo",
       price: "10€",
     },
     {
       name: "Midnight Velvet",
-      imageUrl: "/public/imgs/cocktails/midnight-velvet.jpg",
+      imageUrl: "/imgs/drink-3.png",
       ingredients: "Vodka - Liquore al caffè - Espresso - Sciroppo",
       price: "10€",
     },
     {
       name: "Crimson Highball",
-      imageUrl: "/public/imgs/cocktails/crimson-highball.jpg",
+      imageUrl: "/imgs/drink-4.png",
       ingredients: "Gin - Bitter Rosso - Soda",
       price: "10€",
     },
     {
       name: "Red District",
-      imageUrl: "/public/imgs/cocktails/red-district.jpg",
+      imageUrl: "/imgs/drink-5.png",
       ingredients: "Gin - Aperitivo Rosso - Vermouth Dry - Soda",
       price: "10€",
     },
     {
       name: "Berry Spritz",
-      imageUrl: "/public/imgs/cocktails/berry-spritz.jpg",
+      imageUrl: "/imgs/drink-6.png",
       ingredients: "Frutti Rossi - Prosecco - Soda - Lamponi",
       price: "10€",
     },
@@ -105,9 +176,7 @@ export default function SignatureCocktailsSection({
             <h2 className="font-anton text-[48px] leading-[1.05] text-white md:text-[56px]">
               {title}
             </h2>
-            <p className="mt-2 text-[15px] italic text-white/55">
-              {subtitle}
-            </p>
+            <p className="mt-2 text-[15px] italic text-white/55">{subtitle}</p>
           </div>
           <div className="hidden h-px flex-1 bg-white/20 md:block" />
         </div>
