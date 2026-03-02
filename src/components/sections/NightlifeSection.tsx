@@ -1,4 +1,3 @@
-import * as React from "react";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
