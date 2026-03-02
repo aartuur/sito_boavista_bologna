@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function NightlifeSection({
-  imageUrl = "/public/imgs/nightlife_section.png",
+  imageUrl = "/imgs/nightlife_section.png",
 }: Props) {
   return (
     <section className="w-screen bg-[#070411]">

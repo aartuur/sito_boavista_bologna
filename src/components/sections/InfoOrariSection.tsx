@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function InfoOrariSection({
-  mapImage = "/public/imgs/map.jpg",
+  mapImage = "/imgs/map.jpg",
 }: Props) {
   return (
     <section className="w-screen bg-[#070411] py-20">

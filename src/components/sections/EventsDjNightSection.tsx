@@ -27,9 +27,9 @@ function Img({
 export default function EventsDjNightSection({
   title = "Eventi & DJ Night",
   subtitle = "Ogni weekend, energia diversa.",
-  leftImage = "/public/imgs/events/left.jpg",
-  rightTopImage = "/public/imgs/events/right_top.jpg",
-  rightBottomImage = "/public/imgs/events/right_bottom.jpg",
+  leftImage = "/imgs/events/left.jpg",
+  rightTopImage = "/imgs/events/right_top.jpg",
+  rightBottomImage = "/imgs/events/right_bottom.jpg",
 }: Props) {
   return (
     <section className="w-screen bg-[#070411] py-20">

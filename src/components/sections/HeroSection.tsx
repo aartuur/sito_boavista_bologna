@@ -5,7 +5,7 @@ type Props = {
 };
 
 export default function HeroBoaVista({
-  backgroundUrl = "/public/imgs/hero_background.png",
+  backgroundUrl = "/imgs/hero_background.png",
 }: Props) {
   return (
     <section className="relative w-screen overflow-hidden">
