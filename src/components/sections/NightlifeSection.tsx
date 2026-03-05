@@ -2,47 +2,52 @@ import React from "react";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { motion, type Variants } from "framer-motion";
+import { motion, type Variants, useReducedMotion } from "framer-motion";
 
 type Props = {
   imageUrl?: string;
 };
 
-// ✅ FIX: cubic-bezier deve essere una tuple, non number[]
 const easePremium: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const container: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.08,
-    },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, filter: "blur(6px)" },
-  show: {
-    opacity: 1,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: easePremium },
-  },
-};
-
-const imageEnter: Variants = {
-  hidden: { opacity: 0, y: 18, scale: 0.985 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.85, ease: easePremium },
-  },
-};
 
 export default function NightlifeSection({
   imageUrl = "/imgs/nightlife_section.png",
 }: Props) {
+  const reduceMotion = useReducedMotion();
+
+  const container: Variants = {
+    hidden: {},
+    show: {
+      transition: reduceMotion
+        ? { staggerChildren: 0, delayChildren: 0 }
+        : { staggerChildren: 0.08, delayChildren: 0.06 },
+    },
+  };
+
+  // Reveal pulito: niente blur/filter (spesso causa scatti)
+  const item: Variants = {
+    hidden: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: reduceMotion
+        ? { duration: 0 }
+        : { duration: 0.65, ease: easePremium },
+    },
+  };
+
+  const imageEnter: Variants = {
+    hidden: reduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 14, scale: 0.99 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: reduceMotion
+        ? { duration: 0 }
+        : { duration: 0.8, ease: easePremium },
+    },
+  };
+
   return (
     <section className="relative w-screen overflow-hidden bg-[#070411]">
       {/* Coerenza hero: atmosfera + taglio diagonale */}
@@ -59,18 +64,12 @@ export default function NightlifeSection({
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.35 }}
-            // AOS = macro reveal del blocco (non sui singoli item)
-            data-aos="fade-up"
-            data-aos-duration="900"
-            data-aos-easing="cubic-bezier(0.22,1,0.36,1)"
           >
             {/* micro label stile hero */}
             <motion.div className="inline-flex items-center gap-3" variants={item}>
               <motion.span
                 className="h-[2px] w-10 bg-red-600 shadow-[0_0_18px_rgba(255,0,0,0.25)]"
-                // micro “glow breathe”
-                animate={{ opacity: [0.65, 1, 0.65] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                // tolto loop “breathe”: era eccessivo
               />
               <span className="text-[12px] font-semibold tracking-[0.26em] text-white/50">
                 COCKTAIL BAR • NIGHT EXPERIENCE
@@ -81,9 +80,6 @@ export default function NightlifeSection({
             <motion.h2
               className="mt-6 font-anton text-[56px] leading-[0.98] text-white sm:text-[68px]"
               variants={item}
-              // AOS solo per un accento diverso sul titolo
-              data-aos="fade-up"
-              data-aos-delay="80"
             >
               NIGHTLIFE NEL
               <br />
@@ -94,8 +90,6 @@ export default function NightlifeSection({
             <motion.p
               className="mt-6 text-[20px] leading-[1.6] text-white/50"
               variants={item}
-              data-aos="fade-up"
-              data-aos-delay="140"
             >
               Cocktail, DJ Set ed atmosfera intensa.
             </motion.p>
@@ -105,8 +99,6 @@ export default function NightlifeSection({
             <motion.p
               className="mt-8 text-[17px] leading-[1.9] text-white"
               variants={item}
-              data-aos="fade-up"
-              data-aos-delay="200"
             >
               Boavista è il punto di riferimento per chi cerca energia, musica e
               cocktail nel cuore di Bologna. Un ambiente curato, moderno e
@@ -118,8 +110,9 @@ export default function NightlifeSection({
               <motion.a
                 href="#prenota"
                 className="inline-flex items-center justify-center rounded-lg bg-red-600 px-7 py-3 text-[13px] font-semibold tracking-[0.14em] text-white shadow-[0_14px_40px_rgba(255,0,0,0.18)] transition hover:bg-red-500"
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={reduceMotion ? undefined : { y: -2 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                transition={{ duration: 0.25, ease: easePremium }}
               >
                 PRENOTA ORA
               </motion.a>
@@ -127,8 +120,9 @@ export default function NightlifeSection({
               <motion.a
                 href="#eventi"
                 className="inline-flex items-center justify-center rounded-lg border border-white/20 bg-transparent px-7 py-3 text-[13px] font-semibold tracking-[0.14em] text-white transition hover:border-white/35 hover:bg-white/5"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={reduceMotion ? undefined : { y: -2 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                transition={{ duration: 0.25, ease: easePremium }}
               >
                 EVENTI
               </motion.a>
@@ -140,23 +134,22 @@ export default function NightlifeSection({
                 title="DJ SET"
                 subtitle="ogni weekend"
                 icon={<HeadphonesIcon sx={{ color: "white", fontSize: 26 }} />}
-                aos="fade-up"
-                aosDelay={0}
+                noBorder={false}
+                reduceMotion={reduceMotion as boolean}
               />
               <FeatureRow
                 title="SIGNATURE"
                 subtitle="cocktails"
                 icon={<LocalBarIcon sx={{ color: "white", fontSize: 26 }} />}
-                aos="fade-up"
-                aosDelay={80}
+                noBorder={false}
+                reduceMotion={reduceMotion as boolean}
               />
               <FeatureRow
                 title="OPEN"
                 subtitle="18:00 - 03:00"
                 icon={<AccessTimeIcon sx={{ color: "white", fontSize: 26 }} />}
                 noBorder
-                aos="fade-up"
-                aosDelay={160}
+                reduceMotion={reduceMotion as boolean}
               />
             </motion.div>
           </motion.div>
@@ -168,23 +161,18 @@ export default function NightlifeSection({
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.35 }}
-            // AOS extra per “parallax feel” (senza vero parallax)
-            data-aos="zoom-in"
-            data-aos-duration="900"
-            data-aos-easing="cubic-bezier(0.22,1,0.36,1)"
           >
             <motion.div
               className="relative overflow-hidden rounded-[26px] border border-white/15 bg-black"
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.35, ease: easePremium }}
+              whileHover={reduceMotion ? undefined : { y: -4 }}
+              transition={{ duration: 0.25, ease: easePremium }}
             >
               <motion.img
                 src={imageUrl}
                 alt="Nightlife"
                 className="h-[520px] w-full object-cover"
-                // “cinematic slow zoom”
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.9, ease: easePremium }}
+                whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+                transition={{ duration: 0.7, ease: easePremium }}
               />
 
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(7,4,17,0.15)_0%,rgba(7,4,17,0.55)_60%,rgba(7,4,17,0.92)_100%)]" />
@@ -192,10 +180,10 @@ export default function NightlifeSection({
               {/* info bar */}
               <motion.div
                 className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-[#070411]/80 px-6 py-5 backdrop-blur"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.6 }}
-                transition={{ duration: 0.6, ease: easePremium, delay: 0.15 }}
+                transition={{ duration: 0.55, ease: easePremium, delay: 0.1 }}
               >
                 <div className="flex items-center justify-between gap-6">
                   <div>
@@ -213,8 +201,7 @@ export default function NightlifeSection({
                     </span>
                     <motion.span
                       className="h-2.5 w-2.5 rounded-full bg-red-600"
-                      animate={{ scale: [1, 1.25, 1], opacity: [0.7, 1, 0.7] }}
-                      transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}
+                      // tolto loop pulsante: era troppo “animato”
                     />
                   </div>
                 </div>
@@ -223,10 +210,10 @@ export default function NightlifeSection({
 
             <motion.p
               className="mt-4 text-center text-[12px] tracking-wide text-white/50"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.7 }}
-              transition={{ duration: 0.6, ease: easePremium, delay: 0.1 }}
+              transition={{ duration: 0.55, ease: easePremium, delay: 0.06 }}
             >
               Prenotazione consigliata nei weekend
             </motion.p>
@@ -242,15 +229,13 @@ function FeatureRow({
   subtitle,
   icon,
   noBorder,
-  aos = "fade-up",
-  aosDelay = 0,
+  reduceMotion,
 }: {
   title: string;
   subtitle: string;
   icon: React.ReactNode;
   noBorder?: boolean;
-  aos?: string;
-  aosDelay?: number;
+  reduceMotion: boolean;
 }) {
   return (
     <motion.div
@@ -259,28 +244,22 @@ function FeatureRow({
         "bg-white/0 hover:bg-white/[0.03] transition",
         !noBorder ? "border-b border-white/10" : "",
       ].join(" ")}
-      // AOS per reveal singola row (stagger via delay)
-      data-aos={aos}
-      data-aos-delay={aosDelay}
-      data-aos-duration="700"
-      data-aos-easing="cubic-bezier(0.22,1,0.36,1)"
-      // Framer per micro-interazioni (hover “premium”)
-      whileHover={{ x: 4 }}
-      transition={{ duration: 0.25, ease: easePremium }}
+      // tolto AOS e micro-animazioni “a cascata”
+      whileHover={reduceMotion ? undefined : { x: 2 }}
+      transition={{ duration: 0.2, ease: easePremium }}
     >
       {/* red marker */}
       <motion.div
         className="absolute left-0 top-1/2 h-6 w-[3px] -translate-y-1/2 bg-red-600 shadow-[0_0_16px_rgba(255,0,0,0.35)]"
-        initial={{ opacity: 0.85 }}
-        whileHover={{ opacity: 1, scaleY: 1.15 }}
-        transition={{ duration: 0.25, ease: easePremium }}
+        // tolto scale/opacity hover: era un “effetto in più” non necessario
       />
 
       <div className="flex items-center gap-5 pl-3">
         <motion.div
           className="grid h-11 w-11 place-items-center rounded-lg border border-white/10 bg-white/5"
-          whileHover={{ rotate: -2, scale: 1.04 }}
-          transition={{ duration: 0.25, ease: easePremium }}
+          // hover super soft (opzionale, ma bello e non invadente)
+          whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+          transition={{ duration: 0.2, ease: easePremium }}
         >
           {icon}
         </motion.div>
@@ -297,8 +276,7 @@ function FeatureRow({
 
       <motion.span
         className="text-white/50 transition group-hover:text-white"
-        whileHover={{ x: 2, y: -1 }}
-        transition={{ duration: 0.25, ease: easePremium }}
+        // tolto hover “extra” sulla freccia
       >
         ↗
       </motion.span>

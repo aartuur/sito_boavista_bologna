@@ -3,3 +3,24 @@
 
 .font-anton { font-family: "Anton", sans-serif; }
 .font-allura { font-family: "Alex Brush", cursive; }
+
+[data-aos="boavista-pop"] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+[data-aos="boavista-pop"].aos-animate {
+  animation: boavista-pop 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes boavista-pop {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  55% {
+    transform: translate3d(0, -10px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}

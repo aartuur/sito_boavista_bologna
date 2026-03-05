@@ -16,8 +16,6 @@ type Props = {
   items?: Cocktail[];
 };
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
 function CartIconBtn({ className = "" }: { className?: string }) {
   return (
     <motion.button
@@ -25,7 +23,7 @@ function CartIconBtn({ className = "" }: { className?: string }) {
       aria-label="Aggiungi al carrello"
       whileHover={{ scale: 1.06, y: -1 }}
       whileTap={{ scale: 0.96 }}
-      transition={{ duration: 0.22, ease }}
+      transition={{ duration: 0.18, ease: "linear" }}
       className={[
         "group relative grid h-11 w-11 place-items-center rounded-full",
         "overflow-hidden",
@@ -41,15 +39,8 @@ function CartIconBtn({ className = "" }: { className?: string }) {
       <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-red-500/35 opacity-70 transition group-hover:opacity-100" />
       <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.14),transparent_60%)]" />
 
-      <motion.span
-        className="relative z-10"
-        whileHover={{ scale: 1.04 }}
-        transition={{ duration: 0.2, ease }}
-      >
-        <ShoppingCartOutlinedIcon
-          sx={{ fontSize: 21 }}
-          className="transition duration-200 group-hover:scale-[1.06]"
-        />
+      <motion.span className="relative z-10">
+        <ShoppingCartOutlinedIcon sx={{ fontSize: 21 }} className="transition duration-200 group-hover:scale-[1.06]" />
       </motion.span>
 
       <span className="pointer-events-none absolute inset-0 rounded-full overflow-hidden">
@@ -76,9 +67,7 @@ function CategoryBox({ text }: { text: string }) {
       ].join(" ")}
     >
       <span className="h-[10px] w-[10px] rounded-[3px] bg-red-600" />
-      <span className="text-[11px] font-semibold tracking-[0.22em] text-white/85">
-        {text}
-      </span>
+      <span className="text-[11px] font-semibold tracking-[0.22em] text-white/85">{text}</span>
     </div>
   );
 }
@@ -91,11 +80,7 @@ function TitleWithUnderline({
   size?: "sm" | "md" | "lg";
 }) {
   const cls =
-    size === "lg"
-      ? "text-[28px] sm:text-[34px]"
-      : size === "md"
-      ? "text-[20px] sm:text-[22px]"
-      : "text-[16px] sm:text-[18px]";
+    size === "lg" ? "text-[28px] sm:text-[34px]" : size === "md" ? "text-[20px] sm:text-[22px]" : "text-[16px] sm:text-[18px]";
 
   return (
     <div className="inline-block max-w-full">
@@ -117,9 +102,7 @@ function PricePill({ price }: { price: string }) {
   return (
     <div className="inline-flex items-center gap-2 rounded-full border border-red-500/35 bg-black/18 px-3 py-1.5 backdrop-blur-sm">
       <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
-      <span className="text-[13px] font-semibold tracking-wide text-white">
-        {price}
-      </span>
+      <span className="text-[13px] font-semibold tracking-wide text-white">{price}</span>
     </div>
   );
 }
@@ -128,15 +111,9 @@ function FeaturedRibbon() {
   return (
     <div className="absolute left-5 top-5 overflow-hidden rounded-[14px] border border-white/14 bg-[#070411]/55 backdrop-blur-md">
       <div className="flex items-center gap-0">
-        <motion.div
-          className="h-10 w-1.5 bg-red-600"
-          animate={{ opacity: [0.65, 1, 0.65] }}
-          transition={{ duration: 2.1, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <div className="h-10 w-1.5 bg-red-600" />
         <div className="px-4 py-2">
-          <span className="text-[11px] font-semibold tracking-[0.26em] text-white/85">
-            FEATURED
-          </span>
+          <span className="text-[11px] font-semibold tracking-[0.26em] text-white/85">FEATURED</span>
         </div>
       </div>
     </div>
@@ -150,8 +127,7 @@ function PhotoCard({
   titleSize = "md",
   layout = "bottom",
   featured = false,
-  aosDelayMs = 0,
-  aosDurationMs = 1200,
+  index = 0,
 }: {
   item: Cocktail;
   className?: string;
@@ -159,15 +135,13 @@ function PhotoCard({
   titleSize?: "sm" | "md" | "lg";
   layout?: "bottom" | "side";
   featured?: boolean;
-  aosDelayMs?: number;
-  aosDurationMs?: number;
+  index?: number;
 }) {
+  const fromRight = index % 2 === 0;
+  const initialX = fromRight ? 40 : -40;
+
   return (
     <motion.article
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.7, ease }}
       className={[
         "group relative overflow-hidden rounded-[22px]",
         "border border-white/12 bg-white/[0.02]",
@@ -175,10 +149,10 @@ function PhotoCard({
         "transition duration-300 hover:-translate-y-1 hover:border-white/18",
         className,
       ].join(" ")}
-      data-aos="fade-up"
-      data-aos-duration={aosDurationMs}
-      data-aos-delay={aosDelayMs}
-      data-aos-easing="cubic-bezier(0.22,1,0.36,1)"
+      initial={{ opacity: 0, x: initialX }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.35, ease: "linear", delay: index * 0.3 }}
     >
       <motion.img
         src={item.imageUrl}
@@ -186,7 +160,7 @@ function PhotoCard({
         draggable={false}
         className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
         whileHover={{ scale: 1.04 }}
-        transition={{ duration: 0.9, ease }}
+        transition={{ duration: 0.6, ease: "linear" }}
       />
 
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,rgba(255,255,255,0.06),transparent_55%)]" />
@@ -219,11 +193,7 @@ function PhotoCard({
       {layout === "bottom" ? (
         <div className="absolute inset-x-6 bottom-6">
           <TitleWithUnderline size={titleSize}>{item.name}</TitleWithUnderline>
-
-          <p className="mt-3 line-clamp-2 text-[13.5px] leading-snug text-white/90 sm:text-[14px]">
-            {item.ingredients}
-          </p>
-
+          <p className="mt-3 line-clamp-2 text-[13.5px] leading-snug text-white/90 sm:text-[14px]">{item.ingredients}</p>
           <div className="mt-4">
             <PricePill price={item.price} />
           </div>
@@ -233,9 +203,7 @@ function PhotoCard({
           <div className="grid grid-cols-[1fr_auto] items-end gap-4">
             <div className="min-w-0">
               <TitleWithUnderline size={titleSize}>{item.name}</TitleWithUnderline>
-              <p className="mt-3 line-clamp-2 text-[13.5px] leading-snug text-white/90">
-                {item.ingredients}
-              </p>
+              <p className="mt-3 line-clamp-2 text-[13.5px] leading-snug text-white/90">{item.ingredients}</p>
             </div>
             <div className="text-right">
               <PricePill price={item.price} />
@@ -268,15 +236,6 @@ export default function SignatureCocktailsSection({
   const E = items[4];
   const F = items[5];
 
-  const step = 450;
-
-  const delayBig = 0;
-  const delaySide1 = delayBig + step;
-  const delaySide2 = delaySide1 + step;
-  const delayBottom1 = delaySide2 + step;
-  const delayBottom2 = delayBottom1 + step;
-  const delayBottom3 = delayBottom2 + step;
-
   return (
     <section className="relative w-screen overflow-hidden bg-[#070411] py-20">
       <div className="pointer-events-none absolute inset-0">
@@ -287,19 +246,10 @@ export default function SignatureCocktailsSection({
       <div className="relative mx-auto w-full max-w-7xl px-6">
         <div className="flex items-center justify-center gap-10">
           <div className="hidden h-px flex-1 bg-white/12 md:block" />
-          <div
-            className="text-center"
-            data-aos="fade-up"
-            data-aos-duration="1100"
-            data-aos-easing="cubic-bezier(0.22,1,0.36,1)"
-          >
-            <div className="mx-auto mb-3 h-[2px] w-14 bg-red-600" data-aos="zoom-in" data-aos-delay={200} />
-            <h2 className="font-anton text-[46px] leading-[1.02] text-white md:text-[56px]">
-              {title}
-            </h2>
-            <p className="mt-3 text-[15px] tracking-wide text-white/50">
-              {subtitle}
-            </p>
+          <div className="text-center">
+            <div className="mx-auto mb-3 h-[2px] w-14 bg-red-600" />
+            <h2 className="font-anton text-[46px] leading-[1.02] text-white md:text-[56px]">{title}</h2>
+            <p className="mt-3 text-[15px] tracking-wide text-white/50">{subtitle}</p>
           </div>
           <div className="hidden h-px flex-1 bg-white/12 md:block" />
         </div>
@@ -307,75 +257,28 @@ export default function SignatureCocktailsSection({
         <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-12">
           {A ? (
             <div className="lg:col-span-7">
-              <PhotoCard
-                item={A}
-                featured
-                titleSize="lg"
-                className="min-h-[520px]"
-                layout="bottom"
-                aosDelayMs={delayBig}
-                aosDurationMs={2500}
-              />
+              <PhotoCard item={A} featured titleSize="lg" className="min-h-[520px]" layout="bottom" index={0} />
             </div>
           ) : null}
 
           <div className="grid gap-8 lg:col-span-5">
-            {B ? (
-              <PhotoCard
-                item={B}
-                category="CLASSICO"
-                className="min-h-[250px]"
-                layout="side"
-                aosDelayMs={delaySide1}
-                aosDurationMs={2500}
-              />
-            ) : null}
-            {C ? (
-              <PhotoCard
-                item={C}
-                category="SPECIAL"
-                className="min-h-[250px]"
-                layout="side"
-                aosDelayMs={delaySide2}
-                aosDurationMs={2500}
-              />
-            ) : null}
+            {B ? <PhotoCard item={B} category="CLASSICO" className="min-h-[250px]" layout="side" index={1} /> : null}
+            {C ? <PhotoCard item={C} category="SPECIAL" className="min-h-[250px]" layout="side" index={2} /> : null}
           </div>
 
           {D ? (
             <div className="lg:col-span-6">
-              <PhotoCard
-                item={D}
-                category="HIGHBALL"
-                className="min-h-[260px]"
-                layout="side"
-                aosDelayMs={delayBottom1}
-                aosDurationMs={2500}
-              />
+              <PhotoCard item={D} category="HIGHBALL" className="min-h-[260px]" layout="side" index={3} />
             </div>
           ) : null}
           {E ? (
             <div className="lg:col-span-3">
-              <PhotoCard
-                item={E}
-                category="RED"
-                className="min-h-[260px]"
-                layout="bottom"
-                aosDelayMs={delayBottom2}
-                aosDurationMs={2500}
-              />
+              <PhotoCard item={E} category="RED" className="min-h-[260px]" layout="bottom" index={4} />
             </div>
           ) : null}
           {F ? (
             <div className="lg:col-span-3">
-              <PhotoCard
-                item={F}
-                category="SPRITZ"
-                className="min-h-[260px]"
-                layout="bottom"
-                aosDelayMs={delayBottom3}
-                aosDurationMs={2500}
-              />
+              <PhotoCard item={F} category="SPRITZ" className="min-h-[260px]" layout="bottom" index={5} />
             </div>
           ) : null}
         </div>
