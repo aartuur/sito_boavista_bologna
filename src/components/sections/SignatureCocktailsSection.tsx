@@ -1,4 +1,6 @@
+import React from "react";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { motion } from "framer-motion";
 
 type Cocktail = {
   name: string;
@@ -13,14 +15,20 @@ type Props = {
   subtitle?: string;
   items?: Cocktail[];
 };
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
 function CartIconBtn({ className = "" }: { className?: string }) {
   return (
-    <button
+    <motion.button
       type="button"
       aria-label="Aggiungi al carrello"
+      whileHover={{ scale: 1.06, y: -1 }}
+      whileTap={{ scale: 0.96 }}
+      transition={{ duration: 0.22, ease }}
       className={[
         "group relative grid h-11 w-11 place-items-center rounded-full",
-        "overflow-hidden", // 🔥 fondamentale per non far uscire animazioni
+        "overflow-hidden",
         "border border-white/16 bg-black/20 text-white/95 backdrop-blur-md",
         "shadow-[0_16px_40px_rgba(0,0,0,0.55)]",
         "transition duration-200",
@@ -30,19 +38,20 @@ function CartIconBtn({ className = "" }: { className?: string }) {
         className,
       ].join(" ")}
     >
-      {/* red subtle ring */}
       <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-red-500/35 opacity-70 transition group-hover:opacity-100" />
-
-      {/* inner highlight */}
       <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.14),transparent_60%)]" />
 
-      {/* ICON */}
-      <ShoppingCartOutlinedIcon
-        sx={{ fontSize: 21 }}
-        className="relative z-10 transition duration-200 group-hover:scale-[1.06]"
-      />
+      <motion.span
+        className="relative z-10"
+        whileHover={{ scale: 1.04 }}
+        transition={{ duration: 0.2, ease }}
+      >
+        <ShoppingCartOutlinedIcon
+          sx={{ fontSize: 21 }}
+          className="transition duration-200 group-hover:scale-[1.06]"
+        />
+      </motion.span>
 
-      {/* SHEEN CLIPPED CORRECTLY */}
       <span className="pointer-events-none absolute inset-0 rounded-full overflow-hidden">
         <span
           className={[
@@ -53,7 +62,7 @@ function CartIconBtn({ className = "" }: { className?: string }) {
           ].join(" ")}
         />
       </span>
-    </button>
+    </motion.button>
   );
 }
 
@@ -99,7 +108,6 @@ function TitleWithUnderline({
       >
         {children}
       </h3>
-      {/* underline lunga quanto il testo */}
       <div className="mt-3 h-[2px] w-full bg-red-500" />
     </div>
   );
@@ -120,7 +128,11 @@ function FeaturedRibbon() {
   return (
     <div className="absolute left-5 top-5 overflow-hidden rounded-[14px] border border-white/14 bg-[#070411]/55 backdrop-blur-md">
       <div className="flex items-center gap-0">
-        <div className="h-10 w-1.5 bg-red-600" />
+        <motion.div
+          className="h-10 w-1.5 bg-red-600"
+          animate={{ opacity: [0.65, 1, 0.65] }}
+          transition={{ duration: 2.1, repeat: Infinity, ease: "easeInOut" }}
+        />
         <div className="px-4 py-2">
           <span className="text-[11px] font-semibold tracking-[0.26em] text-white/85">
             FEATURED
@@ -138,6 +150,8 @@ function PhotoCard({
   titleSize = "md",
   layout = "bottom",
   featured = false,
+  aosDelayMs = 0,
+  aosDurationMs = 1200,
 }: {
   item: Cocktail;
   className?: string;
@@ -145,9 +159,15 @@ function PhotoCard({
   titleSize?: "sm" | "md" | "lg";
   layout?: "bottom" | "side";
   featured?: boolean;
+  aosDelayMs?: number;
+  aosDurationMs?: number;
 }) {
   return (
-    <article
+    <motion.article
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.7, ease }}
       className={[
         "group relative overflow-hidden rounded-[22px]",
         "border border-white/12 bg-white/[0.02]",
@@ -155,25 +175,26 @@ function PhotoCard({
         "transition duration-300 hover:-translate-y-1 hover:border-white/18",
         className,
       ].join(" ")}
+      data-aos="fade-up"
+      data-aos-duration={aosDurationMs}
+      data-aos-delay={aosDelayMs}
+      data-aos-easing="cubic-bezier(0.22,1,0.36,1)"
     >
-      {/* IMAGE (molto visibile) */}
-      <img
+      <motion.img
         src={item.imageUrl}
         alt={item.name}
         draggable={false}
         className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
+        whileHover={{ scale: 1.04 }}
+        transition={{ duration: 0.9, ease }}
       />
 
-      {/* overlay MINIMO per testo */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,rgba(255,255,255,0.06),transparent_55%)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(7,4,17,0.52))]" />
 
-      {/* SPECIAL for featured: inner frame + sheen */}
       {featured ? (
         <>
-          {/* subtle inner frame */}
           <div className="pointer-events-none absolute inset-3 rounded-[18px] ring-1 ring-red-500/28" />
-          {/* diagonal sheen on hover */}
           <div
             className={[
               "pointer-events-none absolute -left-1/2 top-0 h-full w-1/2 -skew-x-12",
@@ -182,9 +203,7 @@ function PhotoCard({
               "group-hover:translate-x-[260%] group-hover:opacity-100",
             ].join(" ")}
           />
-          {/* featured ribbon */}
           <FeaturedRibbon />
-          {/* micro pattern only on featured */}
           <div className="pointer-events-none absolute inset-0 opacity-[0.12]">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(255,0,80,0.35),transparent_55%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_30%,rgba(255,255,255,0.12),transparent_58%)]" />
@@ -192,15 +211,11 @@ function PhotoCard({
         </>
       ) : null}
 
-      {/* top row: categoria + cart */}
       <div className="absolute left-5 right-5 top-5 flex items-start justify-between gap-4">
-        <div>
-          {!featured && category ? <CategoryBox text={category} /> : null}
-        </div>
+        <div>{!featured && category ? <CategoryBox text={category} /> : null}</div>
         <CartIconBtn />
       </div>
 
-      {/* CONTENT */}
       {layout === "bottom" ? (
         <div className="absolute inset-x-6 bottom-6">
           <TitleWithUnderline size={titleSize}>{item.name}</TitleWithUnderline>
@@ -230,7 +245,7 @@ function PhotoCard({
       )}
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/12" />
-    </article>
+    </motion.article>
   );
 }
 
@@ -253,6 +268,15 @@ export default function SignatureCocktailsSection({
   const E = items[4];
   const F = items[5];
 
+  const step = 450;
+
+  const delayBig = 0;
+  const delaySide1 = delayBig + step;
+  const delaySide2 = delaySide1 + step;
+  const delayBottom1 = delaySide2 + step;
+  const delayBottom2 = delayBottom1 + step;
+  const delayBottom3 = delayBottom2 + step;
+
   return (
     <section className="relative w-screen overflow-hidden bg-[#070411] py-20">
       <div className="pointer-events-none absolute inset-0">
@@ -263,8 +287,13 @@ export default function SignatureCocktailsSection({
       <div className="relative mx-auto w-full max-w-7xl px-6">
         <div className="flex items-center justify-center gap-10">
           <div className="hidden h-px flex-1 bg-white/12 md:block" />
-          <div className="text-center">
-            <div className="mx-auto mb-3 h-[2px] w-14 bg-red-600" />
+          <div
+            className="text-center"
+            data-aos="fade-up"
+            data-aos-duration="1100"
+            data-aos-easing="cubic-bezier(0.22,1,0.36,1)"
+          >
+            <div className="mx-auto mb-3 h-[2px] w-14 bg-red-600" data-aos="zoom-in" data-aos-delay={200} />
             <h2 className="font-anton text-[46px] leading-[1.02] text-white md:text-[56px]">
               {title}
             </h2>
@@ -277,13 +306,17 @@ export default function SignatureCocktailsSection({
 
         <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-12">
           {A ? (
-            <PhotoCard
-              item={A}
-              featured
-              titleSize="lg"
-              className="min-h-[520px] lg:col-span-7"
-              layout="bottom"
-            />
+            <div className="lg:col-span-7">
+              <PhotoCard
+                item={A}
+                featured
+                titleSize="lg"
+                className="min-h-[520px]"
+                layout="bottom"
+                aosDelayMs={delayBig}
+                aosDurationMs={2500}
+              />
+            </div>
           ) : null}
 
           <div className="grid gap-8 lg:col-span-5">
@@ -293,6 +326,8 @@ export default function SignatureCocktailsSection({
                 category="CLASSICO"
                 className="min-h-[250px]"
                 layout="side"
+                aosDelayMs={delaySide1}
+                aosDurationMs={2500}
               />
             ) : null}
             {C ? (
@@ -301,33 +336,47 @@ export default function SignatureCocktailsSection({
                 category="SPECIAL"
                 className="min-h-[250px]"
                 layout="side"
+                aosDelayMs={delaySide2}
+                aosDurationMs={2500}
               />
             ) : null}
           </div>
 
           {D ? (
-            <PhotoCard
-              item={D}
-              category="HIGHBALL"
-              className="min-h-[260px] lg:col-span-6"
-              layout="side"
-            />
+            <div className="lg:col-span-6">
+              <PhotoCard
+                item={D}
+                category="HIGHBALL"
+                className="min-h-[260px]"
+                layout="side"
+                aosDelayMs={delayBottom1}
+                aosDurationMs={2500}
+              />
+            </div>
           ) : null}
           {E ? (
-            <PhotoCard
-              item={E}
-              category="RED"
-              className="min-h-[260px] lg:col-span-3"
-              layout="bottom"
-            />
+            <div className="lg:col-span-3">
+              <PhotoCard
+                item={E}
+                category="RED"
+                className="min-h-[260px]"
+                layout="bottom"
+                aosDelayMs={delayBottom2}
+                aosDurationMs={2500}
+              />
+            </div>
           ) : null}
           {F ? (
-            <PhotoCard
-              item={F}
-              category="SPRITZ"
-              className="min-h-[260px] lg:col-span-3"
-              layout="bottom"
-            />
+            <div className="lg:col-span-3">
+              <PhotoCard
+                item={F}
+                category="SPRITZ"
+                className="min-h-[260px]"
+                layout="bottom"
+                aosDelayMs={delayBottom3}
+                aosDurationMs={2500}
+              />
+            </div>
           ) : null}
         </div>
       </div>

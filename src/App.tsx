@@ -1,3 +1,5 @@
+"use client";
+
 import "./App.css";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -17,7 +19,6 @@ function App() {
           onFinish={() => setLoading(false)}
         />
       )}
-
       <BrowserRouter>
         <NavbarBoaVista />
         <Routes>

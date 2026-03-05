@@ -22,7 +22,7 @@ type Props = {
 };
 
 export default function FooterBoaVista({
-  logoSrc = "/public/logo.png",
+  logoSrc = "logo.png",
   brandLine1 = "Cocktail Bar & Night",
   brandLine2 = "Experience",
   links = [

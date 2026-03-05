@@ -1,14 +1,74 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>client</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Anton:wght@400;500&display=swap" rel="stylesheet">
- </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Boavista American Bar Bologna | Cocktail Bar in Centro</title>
+  <meta
+    name="description"
+    content="Boavista American Bar a Bologna: cocktail bar e wine & cocktail bar in centro. Aperitivi, eventi e drink d’autore. Via Cesare Battisti 9/B, 40123 Bologna."
+  />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://boavistabologna.it/" />
+
+  <!-- Favicon (già esistente nel template Vite) -->
+  <link rel="icon" type="image/svg+xml" href="logo.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Anton:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Open Graph (senza og:image per evitare URL non garantiti) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:site_name" content="Boavista Bologna" />
+  <meta property="og:title" content="Boavista American Bar Bologna | Cocktail Bar in Centro" />
+  <meta
+    property="og:description"
+    content="Cocktail bar e wine & cocktail bar in centro a Bologna. Aperitivi, eventi e drink d’autore."
+  />
+  <meta property="og:url" content="https://boavistabologna.it/" />
+
+  <!-- Twitter Card (senza image per evitare URL non garantiti) -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Boavista American Bar Bologna | Cocktail Bar in Centro" />
+  <meta
+    name="twitter:description"
+    content="Cocktail bar e wine & cocktail bar in centro a Bologna. Aperitivi, eventi e drink d’autore."
+  />
+
+  <!-- Local Business JSON-LD (solo dati certi; orari omessi se non “ufficiali”) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BarOrPub",
+      "name": "Boavista American Bar",
+      "alternateName": "Boavista Bologna",
+      "url": "https://boavistabologna.it/",
+      "email": "alboavista77@gmail.com",
+      "telephone": ["+39 051 272333", "+39 328 971 9176"],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via Cesare Battisti 9/B",
+        "addressLocality": "Bologna",
+        "addressRegion": "BO",
+        "postalCode": "40123",
+        "addressCountry": "IT"
+      },
+      "vatID": "IT02476541202",
+      "sameAs": [
+        "https://www.instagram.com/boavista_bologna/",
+        "https://www.facebook.com/BoavistaBologna/",
+        "https://www.threads.com/@boavista_bologna"
+      ]
+    }
+  </script>
+</head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
