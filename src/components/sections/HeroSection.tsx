@@ -6,7 +6,7 @@ import { useMemo, useRef } from "react";
 
 type Props = {
   backgroundUrl?: string;
-  loading: boolean; // 👈 arriva dal parent
+  loading?: boolean; // 👈 arriva dal parent
 };
 
 export default function HeroBoaVista({
@@ -48,7 +48,7 @@ export default function HeroBoaVista({
     }),
     [revealDelay]
   );
-  
+
   const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
   const textFade: Variants = {
