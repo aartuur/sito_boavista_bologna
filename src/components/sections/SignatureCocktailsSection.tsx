@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import PhotoCard from "../ui/signature-cocktails/PhotoCard";
 import type { SignatureCocktailsSectionProps } from "../../models";
+import PhotoCard from "./signature-cocktails/PhotoCard";
 
 export default function SignatureCocktailsSection({
   title = "Signature Cocktails",

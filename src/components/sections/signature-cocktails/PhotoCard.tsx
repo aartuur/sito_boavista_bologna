@@ -3,8 +3,8 @@ import CartIconBtn from "./CartIconBtn";
 import CategoryBox from "./CategoryBox";
 import FeaturedRibbon from "./FeaturedRibbon";
 import PricePill from "./PricePill";
-import TitleWithUnderline from "../TitleWithUnderline";
 import type { Cocktail } from "../../../models";
+import TitleWithUnderline from "../../ui/TitleWithUnderline";
 
 type Props = {
   item: Cocktail;
