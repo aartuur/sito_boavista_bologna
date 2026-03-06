@@ -4,7 +4,6 @@ import InfoOrariSection from '../components/sections/InfoOrariSection'
 import InsideBoavistaSection from '../components/sections/InsideBoavistaSection'
 import NightlifeSection from '../components/sections/NightlifeSection'
 import SignatureCocktailsSection from '../components/sections/SignatureCocktailsSection'
-import FooterBoaVista from '../components/ui/FooterBoaVista'
 
 const HomePage = () => {
   return (
@@ -15,7 +14,6 @@ const HomePage = () => {
       <InsideBoavistaSection />
       <EventsDjNightSection />
       <InfoOrariSection />
-      <FooterBoaVista />
     </div>
   )
 }

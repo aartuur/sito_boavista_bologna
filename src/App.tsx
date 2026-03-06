@@ -5,8 +5,9 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Contatti from "./pages/Contatti";
-import NavbarBoaVista from "./components/ui/Navbar";
-import LoaderBoaVista from "./components/ui/LoaderBoavista";
+import LoaderBoaVista from "./components/layout/LoaderBoavista";
+import NavbarBoaVista from "./components/layout/Navbar";
+import FooterBoaVista from "./components/layout/FooterBoaVista";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/contatti" element={<Contatti />} />
         </Routes>
+        <FooterBoaVista />
       </BrowserRouter>
     </>
   );
