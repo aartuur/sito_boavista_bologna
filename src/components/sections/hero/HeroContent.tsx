@@ -54,7 +54,7 @@ export default function HeroContent({ loading }: Props) {
       initial="hidden"
       animate={loading ? "hidden" : "show"}
     >
-      <motion.div variants={textFade} className="mb-5 inline-flex items-center gap-3">
+      <motion.div variants={textFade} className="mb-1 inline-flex items-center gap-3">
         <span className="h-[2px] w-10 bg-[#ff2b2b]" />
         <span className="text-[12px] font-semibold tracking-[0.26em] text-white/50">
           COCKTAIL BAR • NIGHT EXPERIENCE
