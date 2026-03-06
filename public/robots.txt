@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Evita scansioni inutili
+Disallow: /node_modules/
+Disallow: /src/
+
+# Sitemap
+Sitemap: https://boavistabologna.it/sitemap.xml

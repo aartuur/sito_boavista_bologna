@@ -91,7 +91,7 @@ export default function NavbarBoaVista({
         <div className="relative mx-auto flex h-[84px] w-full max-w-7xl items-center justify-between px-6">
           {/* logo */}
           <a
-            href="#"
+            href="/"
             className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-4 focus-visible:ring-offset-[#070411]"
             aria-label="Home"
             onClick={() => setOpen(false)}

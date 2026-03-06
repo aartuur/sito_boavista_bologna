@@ -22,16 +22,16 @@ type Props = {
 };
 
 export default function FooterBoaVista({
-  logoSrc = "logo.png",
+  logoSrc = "logo-title.png",
   brandLine1 = "Cocktail Bar & Night",
   brandLine2 = "Experience",
   links = [
-    { label: "Menu", href: "#menu" },
-    { label: "Eventi", href: "#eventi" },
-    { label: "Cocktail", href: "#cocktail" },
-    { label: "Gallery", href: "#gallery" },
-    { label: "Prenota", href: "#prenota" },
-    { label: "Contatti", href: "#contatti" },
+    { label: "Menu", href: "menu" },
+    { label: "Eventi", href: "eventi" },
+    { label: "Cocktail", href: "cocktail" },
+    { label: "Gallery", href: "gallery" },
+    { label: "Prenota", href: "prenota" },
+    { label: "Contatti", href: "contatti" },
   ],
   ctaTitle = "PRENOTA IL TUO TAVOLO PER\nQUESTO WEEK-END",
   ctaSub = "Vivi l’esperienza Boavista",
@@ -53,7 +53,7 @@ export default function FooterBoaVista({
       <div className="pointer-events-none absolute inset-x-0 -top-6 h-6 bg-gradient-to-b from-black/40 to-transparent blur-[2px]" />
       <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-[radial-gradient(ellipse_at_center,rgba(255,43,43,0.18),transparent_60%)]" />
 
-      <div className="mx-auto w-screen max-w-7xl px-6 py-12">
+      <div className="mx-auto w-screen max-w-7xl px-6 py-12 ">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_180px_1fr_260px] md:items-start">
           {/* BRAND */}
           <div className="flex items-center gap-5">

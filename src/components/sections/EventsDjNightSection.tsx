@@ -45,11 +45,7 @@ export default function EventsDjNightSection({
 
         <div
           className="mt-10 flex items-center justify-center gap-3 text-white/50"
-          data-aos="fade-up"
-          data-aos-delay="220"
-          data-aos-duration="900"
-          data-aos-easing="ease-out-cubic"
-          data-aos-once="true"
+
         >
           <span className="h-px w-10 bg-white/12" />
           <span className="text-[12px] tracking-[0.18em]">
