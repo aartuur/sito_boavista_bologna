@@ -1,5 +1,3 @@
-"use client";
-
 import { motion, type MotionValue } from "framer-motion";
 
 type Props = {

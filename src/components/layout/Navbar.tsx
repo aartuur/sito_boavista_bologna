@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 
 type NavItem = {
@@ -26,7 +24,7 @@ export default function NavbarBoaVista({
     { label: "Info", href: "#info" },
   ],
   tableLabel="Tavolo 7",
-  logoSrc = "logo.png",
+  logoSrc = "/logo-nav.png",
   onTableClick,
   activeHref,
 }: Props) {
@@ -91,14 +89,14 @@ export default function NavbarBoaVista({
           {/* logo */}
           <a
             href="/"
-            className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-4 focus-visible:ring-offset-[#070411]"
+            className="flex items-center justify-center relative top-1 gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-4 focus-visible:ring-offset-[#070411]"
             aria-label="Home"
             onClick={() => setOpen(false)}
           >
             <img
               src={logoSrc}
               alt="Logo"
-              className="h-16 w-16 object-contain"
+              className="h-20 w-20 object-contain"
               draggable={false}
             />
           </a>

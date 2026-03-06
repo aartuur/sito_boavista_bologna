@@ -22,7 +22,7 @@ type Props = {
 };
 
 export default function FooterBoaVista({
-  logoSrc = "logo-title.png",
+  logoSrc = "logo-nav.png",
   brandLine1 = "Cocktail Bar & Night",
   brandLine2 = "Experience",
   links = [
@@ -57,11 +57,11 @@ export default function FooterBoaVista({
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_180px_1fr_260px] md:items-start">
           {/* BRAND */}
           <div className="flex items-center gap-5">
-            <div className="relative grid h-[72px] w-[72px] place-items-center overflow-hidden rounded-[16px] bg-white/5 ring-1 ring-white/10">
+            <div className="relative grid h-[150px] w-[150px] place-items-center overflow-hidden rounded-[16px]">
               <img
                 src={logoSrc}
                 alt="Boavista"
-                className="h-[60px] w-[60px] object-contain"
+                className="h-[120px] w-[120px] object-contain"
                 draggable={false}
               />
             </div>

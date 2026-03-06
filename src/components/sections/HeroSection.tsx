@@ -1,5 +1,3 @@
-"use client";
-
 import { useRef } from "react";
 import { useReducedMotion, useScroll, useTransform } from "framer-motion";
 import HeroBackground from "./hero/HeroBackground";
