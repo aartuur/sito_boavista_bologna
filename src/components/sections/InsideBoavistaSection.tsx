@@ -36,7 +36,7 @@ export default function InsideBoavistaSection({
   }, []);
 
   return (
-    <section className="w-screen bg-[#070411] py-20">
+    <section className="w-screen bg-[#070411] py-20" id="inside">
       <div className="mx-auto w-full max-w-7xl px-6">
         <div
           className="text-center"

@@ -58,7 +58,7 @@ export default function SignatureCocktailsSection({
   const [A, B, C, D, E, F] = items;
 
   return (
-    <section className="relative w-screen overflow-hidden bg-[#070411] py-20">
+    <section className="relative w-screen overflow-hidden bg-[#070411] py-20" id="cocktails">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,rgba(255,255,255,0.06),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(900px_520px_at_18%_75%,rgba(255,0,80,0.07),transparent_60%)]" />

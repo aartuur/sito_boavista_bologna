@@ -19,12 +19,11 @@ type Props = {
 
 export default function NavbarBoaVista({
   items = [
-    { label: "Menu", href: "#menu" },
+    { label: "Night Life", href: "#night-life" },
+    { label: "Cocktails", href: "#cocktails" },
+    { label: "Gallery", href: "#inside" },
     { label: "Eventi", href: "#eventi" },
-    { label: "Cocktail", href: "#cocktail" },
-    { label: "Gallery", href: "#gallery" },
-    { label: "Prenota", href: "#prenota" },
-    { label: "Contatti", href: "#contatti" },
+    { label: "Info", href: "#info" },
   ],
   tableLabel="Tavolo 7",
   logoSrc = "logo.png",

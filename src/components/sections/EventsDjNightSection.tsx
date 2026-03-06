@@ -29,7 +29,7 @@ export default function EventsDjNightSection({
   }, []);
 
   return (
-    <section className="relative w-screen bg-[#070411] py-22">
+    <section className="relative w-screen bg-[#070411] py-22" id="eventi">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,rgba(255,255,255,0.06),transparent_60%)]" />
       </div>

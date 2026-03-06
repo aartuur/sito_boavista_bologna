@@ -63,16 +63,16 @@ export default function HeroContent({ loading }: Props) {
 
       <motion.h1
         variants={titleFade}
-        className="font-anton mx-auto uppercase text-white leading-[0.88] tracking-[0.06em] drop-shadow-[0_14px_34px_rgba(0,0,0,0.55)] text-[56px] sm:text-[92px] md:text-[122px] lg:text-[140px]"
+        className="font-anton mx-auto uppercase  text-white drop-shadow-[0_14px_34px_rgba(0,0,0,0.55)] text-[56px] sm:text-[92px] md:text-[122px] lg:text-[140px]"
       >
         BOAVISTA <span className="block md:inline"> </span> BOLOGNA
       </motion.h1>
 
       <motion.p
         variants={textFade}
-        className="mt-2 font-allura text-white/95 drop-shadow-[0_14px_30px_rgba(0,0,0,0.45)] text-[28px] sm:text-[52px] md:text-[64px] lg:text-[76px]"
+        className="font-allura text-white/95   leading-[0.88] tracking-[0.06em] drop-shadow-[0_14px_30px_rgba(0,0,0,0.45)] text-[28px] sm:text-[52px] md:text-[64px] lg:text-[76px]"
       >
-        Cocktail Bar &amp; Night Experience
+        Cocktail Bar<br/> &amp; Night Experience
       </motion.p>
 
       <motion.div

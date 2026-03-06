@@ -25,7 +25,7 @@ export default function InfoOrariSection({
   }, []);
 
   return (
-    <section className="w-screen bg-[#070411] py-24">
+    <section className="w-screen bg-[#070411] py-24" id="info">
       <div className="mx-auto w-full max-w-7xl px-6">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
           <div>
